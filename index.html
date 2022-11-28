@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <title>This is the title of the webpage!</title>
+  </head>
+  <body>
+    <p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>
+
+    <script src="three.js"></script>
+    <script type="module" src="GLTFLoader.js"></script>
+    <script type="module">
+        import {GLTFLoader} from "./GLTFLoader.js";
+
+        var scene = THREE.Scene();
+        var camra = new THREE.PerspectiveCamera(
+          75,
+          window.innerWidth/window.innerHeight,
+          0.01,
+          1000
+        );
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWdith, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        var loader = new GLTFLoader();
+
+        var obj;
+
+        loader.load("FunnyRoom.gltf", function(gltf){
+          obj = gltf.scene;
+          scene.add(gltf.scene);
+        });
+
+        var light = new THREE.HemisphereLight(0xFFFFFF, 0x000000, 2);
+        scene.add(light);
+        camera.position.set(0,0,10);
+        function animate(){
+          requestAnimationFrame(animate);
+          renderer.render(scene,camera);
+        }
+        animate();
+    </script>
+  </body>
+</html>
